@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Domain extends Model
+{
+    use HasFactory;
+
+    public function ipChecker($IP) {
+        $servers = Server::latest()->get()->where('ip', $IP)->first();
+
+        if(!empty($servers)) {
+            return $servers->name;
+        } else {
+            return $IP;
+        }
+
+
+    }
+}
