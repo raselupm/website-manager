@@ -20,9 +20,17 @@ Go to project
 
 Rename .env.example to .env & Add your WHOIS XML API key on **WHOISXML_APIKEY** variable. Also add your database info. Additionally, you can add SMTP information for get emails when website down or up.
 
+Install composer
+
+`composer install`
+
 Migrate database
 
 `php artisan migrate`
+
+Generate application key 
+
+`php artisan key:generate`
 
 Since we disabled registration, you might want to create a user. You can use tinker or whatever you prefer.
 
