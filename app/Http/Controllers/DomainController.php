@@ -2,13 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CreateEvent;
+use App\Mail\Monitor;
 use App\Models\Domain;
-use App\Models\Server;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class DomainController extends Controller
 {
+
+    public function getDomains(Request $request){
+
+        $search = $request->search;
+
+        if($search == ''){
+            $domains = Domain::orderby('name','asc')->select('id','name')->limit(20)->get();
+        }else{
+            $domains = Domain::orderby('name','asc')->select('id','name')->where('name', 'like', '%' .$search . '%')->limit(20)->get();
+        }
+
+        $response = array();
+        foreach($domains as $domain){
+            $response[] = array("value"=>$domain->id,"label"=>$domain->name);
+        }
+
+        return response()->json($response);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +55,7 @@ class DomainController extends Controller
     public function index()
     {
         //
-        $domains = Domain::latest()->get();
+        $domains = Domain::orderby('name')->paginate(50);
         return view('index', [
             'domains' => $domains
         ]);
@@ -58,17 +82,12 @@ class DomainController extends Controller
     {
         //
         request()->validate([
-            'name' => 'required'
+            'name' => 'required|unique:domains|max:200'
         ]);
 
+        $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey=at_GisnoKXO5BrrMYTFGlTgkh2ZOGfsC&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
 
-        $url = 'https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey=at_wrgWxLcSi3mEEBfqoRXOdQb9ebiIC&domainName='.request('name').'&type=A,MX&outputFormat=JSON';
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $result = curl_exec($ch);
-        curl_close($ch);
+        $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=at_GisnoKXO5BrrMYTFGlTgkh2ZOGfsC&domainName='.request('name').'&outputFormat=JSON');
 
 
 
@@ -91,7 +110,16 @@ class DomainController extends Controller
         $domain->ssl = $ssl;
         $domain->cms = request('cms');
         $domain->cms_version = request('cms_version');
-        $domain->dns_data = $result;
+
+        if($dnsResponse->successful()) {
+            $domain->dns_data = $dnsResponse->body();
+        }
+
+        if($whoisResponse->successful()) {
+            $domain->whois_data = $whoisResponse->body();
+        }
+
+
         $domain->force_hosting = $force_hosting;
 
         $domain->save();
@@ -111,21 +139,25 @@ class DomainController extends Controller
         $domain = Domain::where('name', '=', request('name'))->firstOrFail();
 
 
-        $url = 'https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey=at_wrgWxLcSi3mEEBfqoRXOdQb9ebiIC&domainName='.request('name').'&type=A,MX&outputFormat=JSON';
+        $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey=at_GisnoKXO5BrrMYTFGlTgkh2ZOGfsC&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $result = curl_exec($ch);
-        curl_close($ch);
+        $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=at_GisnoKXO5BrrMYTFGlTgkh2ZOGfsC&domainName='.request('name').'&outputFormat=JSON');
 
 
 
-        $domain->dns_data = $result;
 
-        $domain->save();
+        if($dnsResponse->successful() && $whoisResponse->successful()) {
+            $domain->dns_data = $dnsResponse->body();
+            $domain->whois_data = $whoisResponse->body();
 
-        notify()->success('Domain data refreshed', '', ["positionClass" => "toast-bottom-right"]);
+            $domain->save();
+
+            notify()->success('Domain data refreshed', '', ["positionClass" => "toast-bottom-right"]);
+        } else {
+            notify()->error('Problem on API', '', ["positionClass" => "toast-bottom-right"]);
+        }
+
+
 
         return Redirect::back();
     }
@@ -135,18 +167,35 @@ class DomainController extends Controller
             'name' => 'required'
         ]);
 
-        $url = 'https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey=at_wrgWxLcSi3mEEBfqoRXOdQb9ebiIC&domainName='.request('name').'&type=A,MX&outputFormat=JSON';
+        $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey=at_GisnoKXO5BrrMYTFGlTgkh2ZOGfsC&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $result = curl_exec($ch);
-        curl_close($ch);
+        $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=at_GisnoKXO5BrrMYTFGlTgkh2ZOGfsC&domainName='.request('name').'&outputFormat=JSON');
+
+        if($dnsResponse->successful() && $whoisResponse->successful()) {
+            $result = $dnsResponse->body();
+            $whois_result = $whoisResponse->body();
+        } else {
+            notify()->error('Problem on API', '', ["positionClass" => "toast-bottom-right"]);
+        }
+
+        if(count(json_decode($dnsResponse, true)['DNSData']['dnsRecords']) > 0   ) {
+            $ping = Http::get('http://' . request('name'));
+
+            if($ping->successful()) {
+                $up = true;
+            } else {
+                $up = false;
+            }
+        } else {
+            $up = false;
+        }
 
 
         return view('not-found', [
             'result' => $result,
-            'keyword' => request('name')
+            'whois_result' => $whois_result,
+            'keyword' => request('name'),
+            'up' => $up
         ]);
     }
 
@@ -160,7 +209,15 @@ class DomainController extends Controller
     {
         //
         $domain = Domain::where('name', $name)->firstOrFail();
-        return view('domain', ['domain' => $domain]);
+
+        $lastEvent = $domain->events()->latest()->get()->first();
+
+
+
+        return view('domain', [
+            'domain' => $domain,
+            'lastEvent' => $lastEvent,
+        ]);
     }
 
     /**
@@ -185,8 +242,10 @@ class DomainController extends Controller
      */
     public function update(Request $request, Domain $domain, $id)
     {
+        $domain = Domain::findOrFail($id);
+
         request()->validate([
-            'name' => 'required'
+            'name' => 'required|max:200|unique:domains,name,'.$domain->id
         ]);
 
 
@@ -203,14 +262,26 @@ class DomainController extends Controller
             $force_hosting = 0;
         }
 
+        // update DNS data if domain is different
+        if(request('name') != $domain->name) {
+            $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey=at_GisnoKXO5BrrMYTFGlTgkh2ZOGfsC&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
 
-        $domain = Domain::findOrFail($id);
+            $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=at_GisnoKXO5BrrMYTFGlTgkh2ZOGfsC&domainName='.request('name').'&outputFormat=JSON');
+
+            if($dnsResponse->successful() && $whoisResponse->successful()) {
+                $domain->dns_data = $dnsResponse->body();
+                $domain->whois_data = $whoisResponse->body();
+            }
+        }
+
         $domain->name = request('name');
         $domain->description = request('description');
         $domain->ssl = $ssl;
         $domain->cms = request('cms');
         $domain->cms_version = request('cms_version');
         $domain->force_hosting = $force_hosting;
+
+
 
         $domain->save();
 

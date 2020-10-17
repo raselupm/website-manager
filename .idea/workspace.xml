@@ -1,15 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6d60f79-c68d-4016-aeb3-7de61b7826ab" name="Default Changelist" comment="" />
+    <list default="true" id="f6d60f79-c68d-4016-aeb3-7de61b7826ab" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DomainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DomainController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ServerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ServerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Domain.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Domain.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/analytics/iron-helper-292612-0aad09c8dc8a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_12_142527_create_domains_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_12_142527_create_domains_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_13_050208_create_servers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_13_050208_create_servers_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/domain.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/domain.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/guest.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/guest.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/monitor-email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/monitor-email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/navigation-dropdown.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/navigation-dropdown.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/not-found.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/not-found.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/servers.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/servers.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/app/public/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/app/public/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/testing/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/testing/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/.gitignore" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -136,6 +188,9 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1imVE9lSzUHjaRMaFjKJn2iXyCp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -154,11 +209,12 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/img" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/analytics" />
+      <recent name="$PROJECT_DIR$/public/img" />
     </key>
   </component>
   <component name="RunManager">
@@ -175,28 +231,48 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1602512640098</updated>
-      <workItem from="1602512641154" duration="23390000" />
+      <workItem from="1602512641154" duration="30860000" />
+      <workItem from="1602638862220" duration="50646000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="766" y="414" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602572311333">
-      <screen x="0" y="23" width="2048" height="1057" />
+    <state x="766" y="413" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602837017623">
+      <screen x="0" y="23" width="2048" height="1052" />
     </state>
+    <state x="766" y="413" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1052@0.23.2048.1052" timestamp="1602837017623" />
+    <state x="766" y="414" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1056@0.23.2048.1056" timestamp="1602735176953" />
     <state x="766" y="414" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1057@0.23.2048.1057" timestamp="1602572311333" />
+    <state width="811" height="445" key="SwitcherDM" timestamp="1602673139066">
+      <screen x="0" y="23" width="2048" height="1054" />
+    </state>
+    <state width="811" height="445" key="SwitcherDM/0.23.2048.1054@0.23.2048.1054" timestamp="1602673139066" />
     <state x="649" y="317" width="739" height="523" key="find.popup" timestamp="1602574986940">
       <screen x="0" y="23" width="2048" height="1057" />
     </state>
     <state x="649" y="317" width="739" height="522" key="find.popup/0.23.2048.1056@0.23.2048.1056" timestamp="1602515159408" />
     <state x="649" y="317" width="739" height="523" key="find.popup/0.23.2048.1057@0.23.2048.1057" timestamp="1602574986940" />
-    <state x="612" y="299" width="670" height="677" key="search.everywhere.popup" timestamp="1602578236223">
-      <screen x="0" y="23" width="2048" height="1057" />
+    <state x="612" y="297" width="670" height="673" key="search.everywhere.popup" timestamp="1602894271953">
+      <screen x="0" y="23" width="2048" height="1050" />
     </state>
-    <state x="612" y="299" width="670" height="676" key="search.everywhere.popup/0.23.2048.1056@0.23.2048.1056" timestamp="1602513241677" />
-    <state x="612" y="299" width="670" height="677" key="search.everywhere.popup/0.23.2048.1057@0.23.2048.1057" timestamp="1602578236223" />
+    <state x="612" y="297" width="670" height="673" key="search.everywhere.popup/0.23.2048.1050@0.23.2048.1050" timestamp="1602894271953" />
+    <state x="612" y="298" width="670" height="674" key="search.everywhere.popup/0.23.2048.1052@0.23.2048.1052" timestamp="1602838374111" />
+    <state x="612" y="299" width="670" height="676" key="search.everywhere.popup/0.23.2048.1056@0.23.2048.1056" timestamp="1602741325062" />
+    <state x="612" y="299" width="670" height="677" key="search.everywhere.popup/0.23.2048.1057@0.23.2048.1057" timestamp="1602590252084" />
     <state x="612" y="300" width="670" height="678" key="search.everywhere.popup/0.23.2048.1059@0.23.2048.1059" timestamp="1602559061671" />
   </component>
 </project>

@@ -16,96 +16,87 @@
                 </div>
 
                 <div class="flex items-center">
-                    <x-jet-button data-toggle="modal" data-target="#add-domain">Add a domain</x-jet-button>
-                    <x-jet-button class="ml-3 bg-yellow-600 hover:bg-yellow-500" data-toggle="modal" data-target="#add-server">Add a server</x-jet-button>
+                    <a href="/" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 ml-3 bg-gray-800 hover:bg-gray-900 hover:no-underline">Websites</a>
+
+                    <a href="/servers" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 ml-3 bg-gray-800 hover:bg-gray-900 hover:no-underline">Servers</a>
+
                 </div>
 
             </div>
 
 
-            <div class="modal fade" id="add-domain" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add a domain</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/add-domain" method="POST">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="name">Domain name</label>
-                                    <input value="{{old('name')}}" type="text" name="name" id="name" placeholder="Type domain name without http or https & www" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea name="description" id="description" cols="30" rows="3" class="form-control" placeholder="Type description">{{old('description')}}</textarea>
-                                </div>
 
-                                <div class="form-group custom-switch">
-                                    <input type="checkbox" checked class="custom-control-input" id="ssl" name="ssl">
-                                    <label class="custom-control-label" for="ssl">Have SSL?</label>
-                                </div>
 
-                                <div class="form-group custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="force_hosting" name="force_hosting">
-                                    <label class="custom-control-label" for="force_hosting">Force hosting?</label>
-                                </div>
+            <style>
+                .ui-menu {
+                    background-color: #fff;
+                    max-width: 349px;
+                    border: 1px solid #dddddd;
+                    border-bottom: 0px solid;
+                }
 
-                                <div class="form-group">
-                                    <label for="cms">CMS</label>
-                                    <input value="{{old('cms')}}" type="text" name="cms" id="cms" placeholder="Type CMS name" class="form-control">
-                                </div>
+                .ui-menu li {
+                    border-bottom: 1px solid #ddd;
+                    padding: 5px 10px;
+                    cursor: pointer;
+                    border-radius: 1px;
+                }
 
-                                <div class="form-group">
-                                    <label for="cms_version">CMS version</label>
-                                    <input value="{{old('cms_version')}}" type="number" name="cms_version" id="cms_version" placeholder="Type CMS version" class="form-control" step=".01">
-                                </div>
+                .ui-menu li:hover {
+                    color: #027bfe;
+                }
+                .searching .fa-search:before {
+                    content: "\f110";
+                }
+            </style>
+            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
+            <!-- Script -->
+            <script type="text/javascript">
 
-                                <button x-data="{ adddomain: false }" @click="adddomain = true" type="submit" class="btn btn-primary">Add domain <i x-show="adddomain" @click.away="adddomain = false" class="fas fa-spin fa-spinner"></i></button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                // CSRF Token
+                var CSRF_TOKEN = '{{@csrf_token()}}';
 
-            <div class="modal fade" id="add-server" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add a server</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/add-server" method="POST">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="name">Server name</label>
-                                    <input value="{{old('name')}}" type="text" name="name" id="name" placeholder="Type domain name without http or https & www" class="form-control" required>
-                                </div>
+                $(document).ready(function(){
 
-                                <div class="form-group">
-                                    <label for="ip">Server IP</label>
-                                    <input value="{{old('ip')}}" type="text" name="ip" id="ip" placeholder="Add server IP address" class="form-control" required>
-                                </div>
+                    $(".search-form").submit(function(){
+                        $(".search-form button[type='submit'] i").addClass('fa-spin');
+                        $(this).addClass('searching');
+                    });
 
-                                <button x-data="{ addserver: false }" @click="addserver = true" type="submit" class="btn btn-primary">Add server <i x-show="addserver" @click.away="addserver = false" class="fas fa-spin fa-spinner"></i></button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    $( "#name" ).autocomplete({
+                        source: function( request, response ) {
+                            // Fetch data
+                            $.ajax({
+                                url:"{{route('domains.getDomains')}}",
+                                type: 'post',
+                                dataType: "json",
+                                data: {
+                                    _token: CSRF_TOKEN,
+                                    search: request.term
+                                },
+                                success: function( data ) {
+                                    response( data );
+                                }
+                            });
+                        },
+                        select: function (event, ui) {
+                            // Set selection
+                            $('#name').val(ui.item.label);
+
+                            $(".search-form").submit();
+
+                            return false;
+                        }
+                    });
+
+                });
+            </script>
+
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <div class="flex mr-10">
-                    <form action="/search" method="POST" class="w-full max-w-sm">
+                    <form action="/search" method="POST" class="w-full max-w-sm search-form">
                         @csrf
                         <div class="flex items-center border p-1 pr-2 rounded">
                             <input name="name" id="name" class="appearance-none bg-transparent mr-1 w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Search any domain" required>

@@ -17,8 +17,8 @@ class ServerController extends Controller
 
     public function store() {
         request()->validate([
-            'name' => 'required',
-            'ip' => 'required'
+            'name' => 'required|max:200|unique:servers',
+            'ip' => 'required|unique:servers'
         ]);
 
         $server = new Server();
@@ -38,12 +38,14 @@ class ServerController extends Controller
     }
 
     public function update($id) {
+        $server = Server::findOrFail($id);
+
         request()->validate([
-            'name' => 'required',
-            'ip' => 'required'
+            'name' => 'required|max:200|unique:servers,name,'.$server->id,
+            'ip' => 'required|unique:servers,ip,'.$server->id,
         ]);
 
-        $server = Server::findOrFail($id);
+
 
         $server->name = request('name');
         $server->ip = request('ip');

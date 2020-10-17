@@ -15,7 +15,7 @@ class CreateDomainsTable extends Migration
     {
         Schema::create('domains', function (Blueprint $table) {
             $table->id();
-            $table->char('name', 200);
+            $table->char('name', 200)->unique();
             $table->text('description')->nullable();
             $table->unsignedBigInteger('ssl');
             $table->unsignedBigInteger('force_hosting')->nullable();
@@ -25,6 +25,17 @@ class CreateDomainsTable extends Migration
             $table->json('whois_data')->nullable();
 
             $table->timestamps();
+        });
+
+        Schema::create('domain_event', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('domain_id');
+            $table->unsignedBigInteger('event_id');
+
+            $table->timestamps();
+
+            $table->foreign('domain_id')->references('id')->on('domains');
+            $table->foreign('event_id')->references('id')->on('events');
         });
     }
 

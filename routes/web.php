@@ -26,6 +26,8 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/add-domain', [DomainCont
 Route::middleware(['auth:sanctum', 'verified'])->post('/add-server', [ServerController::class, 'store'])->name('add-server');
 Route::middleware(['auth:sanctum', 'verified'])->post('/refresh', [DomainController::class, 'refresh'])->name('refresh-dns');
 
+Route::middleware(['auth:sanctum', 'verified'])->post('/domains/getDomains/', [DomainController::class, 'getDomains'])->name('domains.getDomains');
+
 Route::middleware(['auth:sanctum', 'verified'])->post('/check', [DomainController::class, 'check'])->name('domain-dns-check');
 Route::middleware(['auth:sanctum', 'verified'])->get('/external', [DomainController::class, 'external'])->name('domain-dns-external');
 
