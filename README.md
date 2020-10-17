@@ -4,8 +4,11 @@ I will update description later.
 
 ## Installation
 
-###Prerequisites
-Register an get an API Key from Whois XML API: https://main.whoisxmlapi.com/. It is FREE (500 requests per month and that is enough).
+####Prerequisites
+
+Register and get an API Key from Whois XML API: https://main.whoisxmlapi.com/. It is FREE (500 requests per month and that is enough).
+
+####Lets start
 
 Clone the project 
 
