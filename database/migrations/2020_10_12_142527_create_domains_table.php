@@ -34,8 +34,8 @@ class CreateDomainsTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('domain_id')->references('id')->on('domains');
-            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('domain_id')->references('id')->on('domains')->cascadeOnDelete();
+            $table->foreign('event_id')->references('id')->on('events')->cascadeOnDelete();
         });
     }
 
@@ -47,5 +47,6 @@ class CreateDomainsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('domains');
+        Schema::dropIfExists('domain_event');
     }
 }

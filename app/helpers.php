@@ -78,3 +78,16 @@ function uptimeType($type) {
     }
 }
 
+
+function dynamicJSFormat($time) {
+    $seconds = strtotime(now()) - strtotime($time);
+
+
+    if($seconds > 3600) {
+        return '%h hours %m minutes %s seconds';
+    } elseif($seconds > 60) {
+        return '%m minutes %s seconds';
+    } else {
+        return '%s seconds';
+    }
+}

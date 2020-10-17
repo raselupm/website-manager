@@ -16,6 +16,7 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('type');
+            $table->dateTime('end_time')->nullable();
             $table->timestamps();
         });
     }

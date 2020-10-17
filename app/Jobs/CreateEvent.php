@@ -11,7 +11,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
@@ -71,6 +70,7 @@ class CreateEvent implements ShouldQueue
                     } else {
                         // found record isn't up do adding a new up event
                         if($checkLatestEvent->type == 2) {
+                            $this->endEvent($checkLatestEvent->id);
                             $this->recordEvent($domain, self::TYPE_UP);
 
                             // email admin about site is up
@@ -86,6 +86,7 @@ class CreateEvent implements ShouldQueue
                 } else {
                     // found record isn't down do adding a new down event
                     if($checkLatestEvent->type == 1) {
+                        $this->endEvent($checkLatestEvent->id);
                         $this->recordEvent($domain, self::TYPE_DOWN);
 
                         // email admin about site is down
@@ -97,12 +98,16 @@ class CreateEvent implements ShouldQueue
         }
     }
 
-    private function recordEvent(Domain $domain, $latestEventType) {
+    private function endEvent($eventID) {
+        $event = Event::findOrFail($eventID);
+        $event->end_time = now();
+        $event->save();
+    }
 
+    private function recordEvent(Domain $domain, $latestEventType) {
         $event = new Event();
-        $event->type = $latestEventType; // 2 = down
+        $event->type = $latestEventType;
         $event->save();
         $domain->events()->attach($event->id);
-
     }
 }
