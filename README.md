@@ -4,11 +4,11 @@ I will update description later.
 
 ## Installation
 
-####Prerequisites
+**Prerequisites**
 
 Register and get an API Key from Whois XML API: https://main.whoisxmlapi.com/. It is FREE (500 requests per month and that is enough).
 
-####Lets start
+**Lets start**
 
 Clone the project 
 
@@ -19,6 +19,12 @@ Go to project
 `cd website-manager`
 
 Rename .env.example to .env & Add your WHOIS XML API key on **WHOISXML_APIKEY** variable. Also add your database info. Additionally, you can add SMTP information for get emails when website down or up.
+
+Migrate database
+
+`php artisan migrate`
+
+Since we disabled registration, you might want to create a user. You can use tinker or whatever you prefer.
 
 After doing all fo these, serve the application
 
@@ -37,7 +43,7 @@ Yes, you are welcome to do that. Please send me requests. Thank you.
 
 ## Security Vulnerabilities
 
-Bhaire, apnar server down hole amar kisu korar nai, swami bidesh. 
+Bhaire, if this application make apnar server down or anything, amar kisu korar nai, ami notun code shikhci & swami bidesh. 
 
 ## License
 
