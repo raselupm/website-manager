@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "iron-helper-292612",
+  "private_key_id": "0aad09c8dc8ac4567eb774f9acc9112256d7ddf7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCWvw3g7N3rvaH6\n+WWdzEt4SGIlulk67C3S1VoT/Y9okLpwKWn3nmmt3X7iYUAo33o3P5Bg6H4hqq80\nRai26yOHfjmp2RQJuoz4w7HR/2RvsW2xw93Bsbrf6E3OZCquodu5T6u/gGJRvIAZ\nnsyNNQpEuRMyI+n0AiZIPgSVCrly/gLmVCEmShAWy/E3E7rznifavxf8qZYNGbu5\nqL2G4XCP6i/9o9oIUnIsm/zSfy09s+r/1IFCisFO8hUzKuINfaCPRU2rOLJyX/I1\nQ/d97yvRlZWs7H+eY0qbVG+WkL43xiEKndTjL231GWrormVS2cui5TBarvFAvulj\nFiL584WFAgMBAAECggEAC3b+XuPvljVMSM0yTZ0IWbPk8F+gLQYMuiM11Z1hjHSt\naUhiYc3E1c9UY3KSsZ5wKhwwe95SxswMxS9Nvz5aQRIi3+hoSLvNFZe0l3cStBf3\ncsn7Efcqx6ALAtkavJYHeFbh22UFP+1+hJ76NFHGCnyqRBRNKnIGEqp802UHE61g\nqhQhNBO+g9vo4Oz+9uFfZsVZWag2eFaGjURSKfAqPORTuc6q2NNEJ6F37zm2OIvW\nKcXOQhUH+BoH4iWdKPJybUVC3+nqiY8TicHrU/xsDjIIVn+pwfUvZZL8546odgCq\nUf2SNQjI0DK5lNFOkU1J40NubSQxt0HpRwH9BDBMpQKBgQDRApcDt93TylDVImTg\nhFvANtPhclSPTuRkNHQA1+VXC37NS16VACo8iVJTCsDzBAD5iRcOYFrU6qlUDUR7\nLoatvBRGpBuNu26Fy+ReB8yeOlLCelwFM86WWK6xEek8K3/xAm0I3L4l1fJ7mede\nWH6L3WpKfBBA2TSsp+AlQ/m2+wKBgQC4oyMjNRbtycv/3/4+64kY5YlhocIPHuvV\nOnK5hSSY6BT/u+xhs0BrLagEuNCxx8cKTu/ZcKFk6XIrVhFxk5qmnq6zP8aTu4i1\n70ybz9LxBzTLDiHeKV9fj7hun7oVJV22Is0YYoh4b6QqAKVmel9UxEysAf4oxXJp\nm5fZeaUNfwKBgQCZ98RzcsEwwXsmZv3U/uvv/vO6wlRUdZN91b4W2PQTWV6BsSHt\ntX9ntOk2T1ewLaTiLgEUEBsZefxe9J8b9zwzQ7fUChRaJlbWrUp/klNDxEcvCKA9\nHNr0mkOmIUGll43aZyUXQDW6/Y5xSwDL2XjvY55nXFlEzD0na0uNaDPOfQKBgC00\nG40qGUP8TMqHX2quJbGHuNvDS4yCKIDav222MCCTaVi2/Idq6FGVKvaE/OsZmxxl\n+QjGL21SThZYCwtAdPNoFCNkcMyIdE7+mEXpWp6SAhXYjugiPuxZdnD3AArfTBMk\ncAwRS5IY2xtBbz0opqBNMuxFzKDUvk8mvcWLp6InAoGAVLXjXMqkfHlxwupQYA0F\n2tJCNnWHEC2YF85ewayx4TJ49xQW5+qP3Dp5GRDHMxyQHB3vW3sMeO3C7waWN2JV\nB+DgUKYtbr5pWLA6cLp2K4+ykKKS8pAGn+dy9IZwcavmCxPCOIg42LdKvPjiPxqE\n7HP+Ke7/XAj+etSgLcBOLVI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "laravel-ga-app@iron-helper-292612.iam.gserviceaccount.com",
+  "client_id": "106990375313871313109",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/laravel-ga-app%40iron-helper-292612.iam.gserviceaccount.com"
+}
