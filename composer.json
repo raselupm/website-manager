@@ -1,5 +1,5 @@
 {
-    "name": "website-manager",
+    "name": "raselupm/website-manager",
     "type": "project",
     "description": "Website manager with monitor using laravel.",
     "keywords": [
