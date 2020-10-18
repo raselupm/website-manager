@@ -6,6 +6,7 @@ use App\Mail\Monitor;
 use App\Models\Domain;
 use App\Models\Event;
 use App\Models\User;
+use App\Notifications\SlackMonitor;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -75,6 +76,8 @@ class CreateEvent implements ShouldQueue
 
                             // email admin about site is up
                             Mail::to($user)->send(new Monitor(self::TYPE_UP, $domain->name, now()));
+                            // Slack notification
+                            $user->notify(new SlackMonitor($domain->name, self::TYPE_UP));
                         }
                     }
                 }
@@ -91,6 +94,8 @@ class CreateEvent implements ShouldQueue
 
                         // email admin about site is down
                         Mail::to($user)->send(new Monitor(self::TYPE_DOWN, $domain->name, now()));
+                        // Slack notification
+                        $user->notify(new SlackMonitor($domain->name, self::TYPE_DOWN));
                     }
                 }
             }

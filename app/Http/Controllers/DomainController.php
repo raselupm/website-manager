@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateEvent;
-use App\Mail\Monitor;
 use App\Models\Domain;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class DomainController extends Controller
 {
+
+    public function test() {
+
+        dispatch(new CreateEvent());
+        return 'OK';
+    }
+
 
     public function getDomains(Request $request){
 

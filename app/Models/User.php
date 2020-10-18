@@ -58,4 +58,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function routeNotificationForSlack($notification)
+    {
+        return env('SLACK_HOOK');
+    }
 }
