@@ -8,6 +8,9 @@ I will update description later.
 
 Register and get an API Key from Whois XML API: https://main.whoisxmlapi.com/. It is FREE (500 requests per month and that is enough).
 
+Register slack webhooks for uptime notifications. Go here: https://slack.com/apps/A0F7XDUAZ-incoming-webhooks & setup your slack. Get webhooks UR.
+
+
 ####Lets start
 
 Clone the project 
@@ -18,11 +21,35 @@ Go to project
 
 `cd website-manager`
 
-Rename .env.example to .env & Add your WHOIS XML API key on **WHOISXML_APIKEY** variable. Also add your database info. Additionally, you can add SMTP information for get emails when website down or up.
+Rename .env.example to .env & Add your WHOIS XML API key on **WHOISXML_APIKEY** variable. Also add your database info. Additionally, you can add SMTP information for get emails when website down or up. Save your slack webhook URL as well.
+
+Install composer
+
+`composer install`
+
+Migrate database
+
+`php artisan migrate`
 
 After doing all fo these, serve the application
 
 `php artisan serve`
+
+**Setting up cron**
+
+We are using laravel schedule for manage cron jobs. You can enable cron by following this:
+
+On local: Open a new tab on terminal. Now run command below: 
+
+`php artisan schedule:work`
+
+On server: type command below
+
+`crontab -e`
+
+Add this command & save & exit. 
+
+`* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1`
 
 
 ## Disclaimer
