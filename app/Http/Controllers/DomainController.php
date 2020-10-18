@@ -11,12 +11,6 @@ use Illuminate\Support\Facades\Redirect;
 class DomainController extends Controller
 {
 
-    public function test() {
-
-        dispatch(new CreateEvent());
-        return 'OK';
-    }
-
 
     public function getDomains(Request $request){
 
