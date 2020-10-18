@@ -48,7 +48,9 @@ class CreateEvent implements ShouldQueue
 
         $user = User::findOrFail(1);
 
-        $client = new Client(env('TWILO_SID'), env('TWILO_TOKEN'));
+        if(!empty(env('TWILO_SID')) && !empty(env('TWILO_TOKEN')) && !empty(env('TWILO_TO_NUMBER')) && !empty(env('TWILO_FORM_NUMBER'))) {
+            $client = new Client(env('TWILO_SID'), env('TWILO_TOKEN'));
+        }
 
         $domains = Domain::select(['id', 'name'])->get();
 

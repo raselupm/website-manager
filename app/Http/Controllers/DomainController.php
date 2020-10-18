@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Jobs\CreateEvent;
 use App\Models\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -12,7 +13,6 @@ use Twilio\Rest\Client;
 
 class DomainController extends Controller
 {
-
 
     public function getDomains(Request $request){
 
