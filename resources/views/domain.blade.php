@@ -42,117 +42,121 @@
                         </div>
                     @endif
 
-                    @if(count(json_decode($domain->dns_data, true)['DNSData']['dnsRecords']) > 0   )
-                        <div class="col">
-                            <div class="border p-4">
-                                <h4 class="font-bold text-xl mb-2">Hosted on</h4>
-                                @if(!empty($domain->force_hosting == 1))
-                                    PPM VPS <i class="fas fa-check-circle"></i>
-                                @else
-                                    {{ipChecker( json_decode($domain->dns_data, true)['DNSData']['dnsRecords'][0]['address'] )}}
-                                @endif
-                            </div>
-                        </div>
-                    @endif
-
-                    @if(count(json_decode($domain->dns_data, true)['DNSData']['dnsRecords']) > 1)
-                        @if(end(json_decode($domain->dns_data, true)['DNSData']['dnsRecords'])['dnsType'] == 'MX')
+                    @if(array_key_exists('DNSData', json_decode($domain->dns_data, true)))
+                        @if(count(json_decode($domain->dns_data, true)['DNSData']['dnsRecords']) > 0   )
                             <div class="col">
                                 <div class="border p-4">
-                                    <h4 class="font-bold text-xl mb-2">Email hosting provider</h4>
-                                    {{mxProviderChecker(end(json_decode($domain->dns_data, true)['DNSData']['dnsRecords'])['target'])}}
+                                    <h4 class="font-bold text-xl mb-2">Hosted on</h4>
+                                    @if(!empty($domain->force_hosting == 1))
+                                        PPM VPS <i class="fas fa-check-circle"></i>
+                                    @else
+                                        {{ipChecker( json_decode($domain->dns_data, true)['DNSData']['dnsRecords'][0]['address'] )}}
+                                    @endif
                                 </div>
                             </div>
+                        @endif
+
+                        @if(count(json_decode($domain->dns_data, true)['DNSData']['dnsRecords']) > 1)
+                            @if(end(json_decode($domain->dns_data, true)['DNSData']['dnsRecords'])['dnsType'] == 'MX')
+                                <div class="col">
+                                    <div class="border p-4">
+                                        <h4 class="font-bold text-xl mb-2">Email hosting provider</h4>
+                                        {{mxProviderChecker(end(json_decode($domain->dns_data, true)['DNSData']['dnsRecords'])['target'])}}
+                                    </div>
+                                </div>
+                            @endif
                         @endif
                     @endif
                 </div>
 
 
-                @if(array_key_exists('dataError', json_decode($domain->whois_data, true)['WhoisRecord']))
-                @else
-                    <div class="row mt-4">
-                        <div class="col">
-                            <h3 class="font-bold text-xl  mb-3">Domain register information</h3>
+                @if(array_key_exists('WhoisRecord', json_decode($domain->whois_data, true)))
+                    @if(array_key_exists('dataError', json_decode($domain->whois_data, true)['WhoisRecord']))
+                    @else
+                        <div class="row mt-4">
+                            <div class="col">
+                                <h3 class="font-bold text-xl  mb-3">Domain register information</h3>
 
-                            <table class="table-auto">
-                                <tbody>
-                                <tr>
-                                    <td class="border px-4 py-2">Registered date</td>
-                                    <td class="border px-4 py-2">{{date('F j, Y', strtotime(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['createdDate']))}}</td>
-                                </tr>
+                                <table class="table-auto">
+                                    <tbody>
+                                    <tr>
+                                        <td class="border px-4 py-2">Registered date</td>
+                                        <td class="border px-4 py-2">{{date('F j, Y', strtotime(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['createdDate']))}}</td>
+                                    </tr>
 
-                                <tr>
-                                    <td class="border px-4 py-2">Update date</td>
-                                    <td class="border px-4 py-2">{{date('F j, Y', strtotime(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['updatedDate']))}}</td>
-                                </tr>
+                                    <tr>
+                                        <td class="border px-4 py-2">Update date</td>
+                                        <td class="border px-4 py-2">{{date('F j, Y', strtotime(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['updatedDate']))}}</td>
+                                    </tr>
 
-                                <tr>
-                                    <td class="border px-4 py-2">Expire date</td>
-                                    <td class="border px-4 py-2">{{date('F j, Y', strtotime(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['expiresDate']))}} {!! expireChecker(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['expiresDate']) !!}</td>
-                                </tr>
+                                    <tr>
+                                        <td class="border px-4 py-2">Expire date</td>
+                                        <td class="border px-4 py-2">{{date('F j, Y', strtotime(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['expiresDate']))}} {!! expireChecker(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['expiresDate']) !!}</td>
+                                    </tr>
 
-                                <tr>
-                                    <td class="border px-4 py-2">Name servers</td>
-                                    <td class="border px-4 py-2">
-                                        @foreach(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['nameServers']['hostNames'] as $ns)
-                                            <p>{{$ns}}</p>
-                                        @endforeach
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="border px-4 py-2">Name servers</td>
+                                        <td class="border px-4 py-2">
+                                            @foreach(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['nameServers']['hostNames'] as $ns)
+                                                <p>{{$ns}}</p>
+                                            @endforeach
+                                        </td>
+                                    </tr>
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col">
+                                <h3 class="font-bold text-xl  mb-3">Domain contact information</h3>
+                                <table class="table-auto">
+                                    <tbody>
+                                    <tr>
+                                        <td class="border px-4 py-2">Contact</td>
+                                        <td class="border px-4 py-2">
+                                            @if(array_key_exists('registrant', json_decode($domain->whois_data, true)['WhoisRecord']))
+
+                                                @if(array_key_exists('name', json_decode($domain->whois_data, true)['WhoisRecord']['registrant']))
+                                                    {{json_decode($domain->whois_data, true)['WhoisRecord']['registrant']['name']}},
+                                                @endif
+
+                                                @if(array_key_exists('organization', json_decode($domain->whois_data, true)['WhoisRecord']['registrant']))
+                                                    {{json_decode($domain->whois_data, true)['WhoisRecord']['registrant']['organization']}}
+                                                @endif
+                                            @else
+                                                @if(array_key_exists('organization', json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['registrant']))
+                                                {{json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['registrant']['organization']}}
+                                                @endif
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-4 py-2">Email address</td>
+                                        <td class="border px-4 py-2">
+                                            {{json_decode($domain->whois_data, true)['WhoisRecord']['contactEmail']}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="border px-4 py-2">Address</td>
+                                        <td class="border px-4 py-2">
+                                            @if(array_key_exists('registrant', json_decode($domain->whois_data, true)['WhoisRecord']))
+                                                {{json_decode($domain->whois_data, true)['WhoisRecord']['registrant']['state']}}, {{json_decode($domain->whois_data, true)['WhoisRecord']['registrant']['country']}}
+                                            @else
+                                                {{json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['registrant']['state']}}, {{json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['registrant']['country']}}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-4 py-2">Registrar name</td>
+                                        <td class="border px-4 py-2">
+                                            {{json_decode($domain->whois_data, true)['WhoisRecord']['registrarName']}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="col">
-                            <h3 class="font-bold text-xl  mb-3">Domain contact information</h3>
-                            <table class="table-auto">
-                                <tbody>
-                                <tr>
-                                    <td class="border px-4 py-2">Contact</td>
-                                    <td class="border px-4 py-2">
-                                        @if(array_key_exists('registrant', json_decode($domain->whois_data, true)['WhoisRecord']))
-
-                                            @if(array_key_exists('name', json_decode($domain->whois_data, true)['WhoisRecord']['registrant']))
-                                                {{json_decode($domain->whois_data, true)['WhoisRecord']['registrant']['name']}},
-                                            @endif
-
-                                            @if(array_key_exists('organization', json_decode($domain->whois_data, true)['WhoisRecord']['registrant']))
-                                                {{json_decode($domain->whois_data, true)['WhoisRecord']['registrant']['organization']}}
-                                            @endif
-                                        @else
-                                            @if(array_key_exists('organization', json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['registrant']))
-                                            {{json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['registrant']['organization']}}
-                                            @endif
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="border px-4 py-2">Email address</td>
-                                    <td class="border px-4 py-2">
-                                        {{json_decode($domain->whois_data, true)['WhoisRecord']['contactEmail']}}
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="border px-4 py-2">Address</td>
-                                    <td class="border px-4 py-2">
-                                        @if(array_key_exists('registrant', json_decode($domain->whois_data, true)['WhoisRecord']))
-                                            {{json_decode($domain->whois_data, true)['WhoisRecord']['registrant']['state']}}, {{json_decode($domain->whois_data, true)['WhoisRecord']['registrant']['country']}}
-                                        @else
-                                            {{json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['registrant']['state']}}, {{json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['registrant']['country']}}
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="border px-4 py-2">Registrar name</td>
-                                    <td class="border px-4 py-2">
-                                        {{json_decode($domain->whois_data, true)['WhoisRecord']['registrarName']}}
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    @endif
                 @endif
 
 

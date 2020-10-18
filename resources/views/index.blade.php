@@ -96,19 +96,29 @@
                                 @if(!empty($domain->force_hosting == 1))
                                     PPM VPS <i class="fas fa-check-circle"></i>
                                 @else
-                                    @if(count(json_decode($domain->dns_data, true)['DNSData']['dnsRecords']) > 0   )
-                                        {{ipChecker( json_decode($domain->dns_data, true)['DNSData']['dnsRecords'][0]['address'] )}}
+                                    @if(array_key_exists('DNSData', json_decode($domain->dns_data, true)))
+                                        @if(count(json_decode($domain->dns_data, true)['DNSData']['dnsRecords']) > 0   )
+                                            {{ipChecker( json_decode($domain->dns_data, true)['DNSData']['dnsRecords'][0]['address'] )}}
+                                        @else
+                                            No hosting record
+                                        @endif
                                     @else
                                         No hosting record
                                     @endif
+
                                 @endif
                             </td>
                             <td class="border px-4 py-2 align-middle text-center">
-                                @if(array_key_exists('expiresDate', json_decode($domain->whois_data, true)['WhoisRecord']['registryData']))
-                                    {!! expireChecker(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['expiresDate']) !!}
+                                @if(array_key_exists('WhoisRecord', json_decode($domain->whois_data, true)))
+                                    @if(array_key_exists('expiresDate', json_decode($domain->whois_data, true)['WhoisRecord']['registryData']))
+                                        {!! expireChecker(json_decode($domain->whois_data, true)['WhoisRecord']['registryData']['expiresDate']) !!}
+                                    @else
+                                        No record
+                                    @endif
                                 @else
                                     No record
                                 @endif
+
                             </td>
                             <td class="border px-4 py-2 align-middle text-center">
 {{--                                <a href="/edit-domain/{{$domain->id}}" class="btn btn-secondary btn-sm mr-4">Edit <i class="fa fa-edit ml-1"></i></a>--}}
