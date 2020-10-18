@@ -46,14 +46,7 @@ class CreateEvent implements ShouldQueue
     {
         //
 
-        $user = User::findOrFail(1);
-
-        if(!empty(env('TWILO_SID')) && !empty(env('TWILO_TOKEN')) && !empty(env('TWILO_TO_NUMBER')) && !empty(env('TWILO_FORM_NUMBER'))) {
-            $client = new Client(env('TWILO_SID'), env('TWILO_TOKEN'));
-        }
-
         $domains = Domain::select(['id', 'name'])->get();
-
 
 
         foreach ($domains as $domain) {
@@ -65,58 +58,14 @@ class CreateEvent implements ShouldQueue
                 $crawlerError = true;
             }
 
-            // checking last previous record
-            $checkLatestEvent = $domain->events()->latest()->get()->first();
-
             if($crawlerError == false) {
-                // no crawl error, means domain is up
                 if($ping->successful()) {
-                    if(empty($checkLatestEvent) ) {
-                        // no record found, so adding a new one
-                        $this->recordEvent($domain, self::TYPE_UP);
-                    } else {
-                        // found record isn't up do adding a new up event
-                        if($checkLatestEvent->type == 2) {
-                            $this->endEvent($checkLatestEvent->id);
-                            $this->recordEvent($domain, self::TYPE_UP);
-
-                            // email admin about site is up
-                            Mail::to($user)->send(new Monitor(self::TYPE_UP, $domain->name, now()));
-                            // Slack notification
-                            if(!empty(env('SLACK_HOOK'))) {
-                                $user->notify(new SlackMonitor($domain->name, self::TYPE_UP));
-                            }
-                        }
-                    }
+                    $this->doDomainMonitorTasks($domain, self::TYPE_UP);
+                } else {
+                    $this->doDomainMonitorTasks($domain, self::TYPE_DOWN);
                 }
             } else {
-                // crawl error, means domain is down
-                if(empty($checkLatestEvent) ) {
-                    // no record found, so adding a new one
-                    $this->recordEvent($domain, self::TYPE_DOWN);
-                } else {
-                    // found record isn't down do adding a new down event
-                    if($checkLatestEvent->type == 1) {
-                        $this->endEvent($checkLatestEvent->id);
-                        $this->recordEvent($domain, self::TYPE_DOWN);
-
-                        // email admin about site is down
-                        Mail::to($user)->send(new Monitor(self::TYPE_DOWN, $domain->name, now()));
-                        // Slack notification
-                        if(!empty(env('SLACK_HOOK'))) {
-                            $user->notify(new SlackMonitor($domain->name, self::TYPE_DOWN));
-                        }
-
-
-                        // Twilo notification
-                        if(!empty(env('TWILO_SID')) && !empty(env('TWILO_TOKEN')) && !empty(env('TWILO_TO_NUMBER')) && !empty(env('TWILO_FORM_NUMBER'))) {
-                            $client->calls->create(env('TWILO_TO_NUMBER'), env('TWILO_FORM_NUMBER'), [
-                                    'twiml' => '<Response><Say loop="3" voice="woman">Bad news! Your domain ' . $domain->name . ' is down.</Say></Response>'
-                                ]
-                            );
-                        }
-                    }
-                }
+                $this->doDomainMonitorTasks($domain, self::TYPE_DOWN);
             }
 
         }
@@ -133,5 +82,60 @@ class CreateEvent implements ShouldQueue
         $event->type = $latestEventType;
         $event->save();
         $domain->events()->attach($event->id);
+    }
+
+    private function sendNotifications($type, $domain) {
+        $user = User::findOrFail(1);
+
+        // email admin about site is down
+        Mail::to($user)->send(new Monitor($type, $domain, now()));
+
+        // Slack notification
+        if(!empty(env('SLACK_HOOK'))) {
+            $user->notify(new SlackMonitor($domain, $type));
+        }
+    }
+
+    private function sendTwiloCall($type, $domain) {
+
+        if($type == 1) {
+            $type_text = 'up';
+            $news_text = 'Good';
+        } else {
+            $type_text = 'down';
+            $news_text = 'Bad';
+        }
+
+        // Twilo notification
+        if(!empty(env('TWILO_SID')) && !empty(env('TWILO_TOKEN')) && !empty(env('TWILO_TO_NUMBER')) && !empty(env('TWILO_FORM_NUMBER'))) {
+            $client = new Client(env('TWILO_SID'), env('TWILO_TOKEN'));
+
+            $client->calls->create(env('TWILO_TO_NUMBER'), env('TWILO_FORM_NUMBER'), [
+                    'twiml' => '<Response><Say loop="3" voice="woman">'.$news_text.' news! Your domain ' . $domain . ' is '.$type_text.'.</Say></Response>'
+                ]
+            );
+        }
+    }
+
+    private function doDomainMonitorTasks($domain, $type) {
+        $checkLatestEvent = $domain->events()->latest()->get()->first();
+
+
+        if(empty($checkLatestEvent) ) {
+            // no record found, so adding a new one
+            $this->recordEvent($domain, $type);
+        } else {
+            // found record isn't up do adding a new up event
+            if($checkLatestEvent->type != $type) {
+                $this->endEvent($checkLatestEvent->id);
+                $this->recordEvent($domain, $type);
+
+                $this->sendNotifications($type, $domain->name);
+
+                if($type == self::TYPE_DOWN) {
+                    $this->sendTwiloCall(self::TYPE_DOWN, $domain->name);
+                }
+            }
+        }
     }
 }
