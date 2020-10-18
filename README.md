@@ -10,6 +10,8 @@ Register and get an API Key from Whois XML API: https://main.whoisxmlapi.com/. I
 
 Register slack webhooks for uptime notifications. Go here: https://slack.com/apps/A0F7XDUAZ-incoming-webhooks & setup your slack. Get webhooks UR.
 
+If you want to get a call when your monitor is down, twilo is already integrated. You just need to fill twilo auth keys, from & to numbers. 
+
 
 ####Lets start
 

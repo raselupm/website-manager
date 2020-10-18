@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 
+use Twilio\Rest\Client;
+
 class DomainController extends Controller
 {
-
 
 
     public function getDomains(Request $request){

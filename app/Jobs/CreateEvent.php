@@ -15,6 +15,8 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
+use Twilio\Rest\Client;
+
 use Exception;
 
 
@@ -45,6 +47,8 @@ class CreateEvent implements ShouldQueue
         //
 
         $user = User::findOrFail(1);
+
+        $client = new Client(env('TWILO_SID'), env('TWILO_TOKEN'));
 
         $domains = Domain::select(['id', 'name'])->get();
 
@@ -77,7 +81,9 @@ class CreateEvent implements ShouldQueue
                             // email admin about site is up
                             Mail::to($user)->send(new Monitor(self::TYPE_UP, $domain->name, now()));
                             // Slack notification
-                            $user->notify(new SlackMonitor($domain->name, self::TYPE_UP));
+                            if(!empty(env('SLACK_HOOK'))) {
+                                $user->notify(new SlackMonitor($domain->name, self::TYPE_UP));
+                            }
                         }
                     }
                 }
@@ -95,7 +101,18 @@ class CreateEvent implements ShouldQueue
                         // email admin about site is down
                         Mail::to($user)->send(new Monitor(self::TYPE_DOWN, $domain->name, now()));
                         // Slack notification
-                        $user->notify(new SlackMonitor($domain->name, self::TYPE_DOWN));
+                        if(!empty(env('SLACK_HOOK'))) {
+                            $user->notify(new SlackMonitor($domain->name, self::TYPE_DOWN));
+                        }
+
+
+                        // Twilo notification
+                        if(!empty(env('TWILO_SID')) && !empty(env('TWILO_TOKEN')) && !empty(env('TWILO_TO_NUMBER')) && !empty(env('TWILO_FORM_NUMBER'))) {
+                            $client->calls->create(env('TWILO_TO_NUMBER'), env('TWILO_FORM_NUMBER'), [
+                                    'twiml' => '<Response><Say loop="3" voice="woman">Bad news! Your domain ' . $domain->name . ' is down.</Say></Response>'
+                                ]
+                            );
+                        }
                     }
                 }
             }
