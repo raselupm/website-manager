@@ -15,6 +15,7 @@ use App\Http\Controllers\ServerController;
 */
 
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/test', [DomainController::class, 'test'])->name('test');
 Route::middleware(['auth:sanctum', 'verified'])->get('/', [DomainController::class, 'index'])->name('dashboard');
 Route::middleware(['auth:sanctum', 'verified'])->get('/servers', [ServerController::class, 'index'])->name('servers');
 Route::middleware(['auth:sanctum', 'verified'])->get('/{name}', [DomainController::class, 'show'])->name('domain-single');

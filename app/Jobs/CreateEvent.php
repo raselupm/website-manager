@@ -27,7 +27,7 @@ class CreateEvent implements ShouldQueue
     const TYPE_UP = 1;
     const TYPE_DOWN = 2;
 
-    public $timeout = 0;
+    public $timeout = 300;
 
     /**
      * Create a new job instance.
