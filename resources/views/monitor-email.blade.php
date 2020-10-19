@@ -93,13 +93,13 @@
                                                         </tr>
                                                         <tr>
                                                             <td class="esd-block-text es-p15t es-p10b" align="left">
-                                                                <p style="font-size: 16px; color: #777777;">Your website {{$domain_name}} is <strong>{{$type == 1 ? 'UP' : 'DOWN'}}</strong> since {{date('F j, Y - g:i a', strtotime($time))}}.</p>
+                                                                <p style="font-size: 16px; color: #777777;">Your website {{$domain}} is <strong>{{$type == 1 ? 'UP' : 'DOWN'}}</strong> since {{date('F j, Y - g:i a', strtotime(now()))}}.</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="esd-block-text es-p5t es-p10b" align="left">
                                                                 <p style="font-size: 16px; color: #777777;">You can view historical outages
-                                                                    <a href="{{env('APP_URL')}}{{$domain_name}}">here</a></p>
+                                                                    <a href="{{env('APP_URL')}}{{$domain}}">here</a></p>
                                                             </td>
                                                         </tr>
                                                         <tr>

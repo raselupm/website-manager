@@ -77,26 +77,31 @@ class CreateEvent implements ShouldQueue
         $event->save();
     }
 
-    private function recordEvent(Domain $domain, $latestEventType) {
+    private function recordEvent(Domain $domain, $type) {
         $event = new Event();
-        $event->type = $latestEventType;
+        $event->type = $type;
         $event->save();
         $domain->events()->attach($event->id);
     }
 
-    private function sendNotifications($type, $domain) {
+    private function sendNotifications($domain, $type) {
         $user = User::findOrFail(1);
 
         // email admin about site is down
-        Mail::to($user)->send(new Monitor($type, $domain, now()));
+        Mail::to($user)->send(new Monitor($domain, $type));
 
         // Slack notification
         if(!empty(env('SLACK_HOOK'))) {
             $user->notify(new SlackMonitor($domain, $type));
         }
+
+        // Twilo notification
+        if(!empty(env('TWILO_SID')) && !empty(env('TWILO_TOKEN')) && !empty(env('TWILO_TO_NUMBER')) && !empty(env('TWILO_FORM_NUMBER'))) {
+            $this->sendTwiloNotification($domain, $type, $type);
+        }
     }
 
-    private function sendTwiloCall($type, $domain) {
+    private function sendTwiloNotification($domain, $type, $method) {
 
         if($type == 1) {
             $type_text = 'up';
@@ -106,10 +111,17 @@ class CreateEvent implements ShouldQueue
             $news_text = 'Bad';
         }
 
-        // Twilo notification
-        if(!empty(env('TWILO_SID')) && !empty(env('TWILO_TOKEN')) && !empty(env('TWILO_TO_NUMBER')) && !empty(env('TWILO_FORM_NUMBER'))) {
-            $client = new Client(env('TWILO_SID'), env('TWILO_TOKEN'));
+        $client = new Client(env('TWILO_SID'), env('TWILO_TOKEN'));
 
+
+        // SMS if site up or down
+        $client->messages->create(env('TWILO_TO_NUMBER'), [
+            'from' => env('TWILO_FORM_NUMBER'),
+            'body' => ''.$news_text.' news! Your domain ' . $domain . ' is '.$type_text.'. since '.date('F j, Y - g:i a', strtotime(now())).'.'
+        ]);
+
+        // call only if site down
+        if($method == self::TYPE_DOWN) {
             $client->calls->create(env('TWILO_TO_NUMBER'), env('TWILO_FORM_NUMBER'), [
                     'twiml' => '<Response><Say loop="3" voice="woman">'.$news_text.' news! Your domain ' . $domain . ' is '.$type_text.'.</Say></Response>'
                 ]
@@ -130,11 +142,7 @@ class CreateEvent implements ShouldQueue
                 $this->endEvent($checkLatestEvent->id);
                 $this->recordEvent($domain, $type);
 
-                $this->sendNotifications($type, $domain->name);
-
-                if($type == self::TYPE_DOWN) {
-                    $this->sendTwiloCall(self::TYPE_DOWN, $domain->name);
-                }
+                $this->sendNotifications($domain->name, $type);
             }
         }
     }

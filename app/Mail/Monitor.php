@@ -11,21 +11,19 @@ class Monitor extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $domain;
     public $type;
-    public $domain_name;
-    public $time;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($type, $domain_name, $time)
+    public function __construct($domain, $type)
     {
         //
+        $this->domain = $domain;
         $this->type = $type;
-        $this->domain_name = $domain_name;
-        $this->time = $time;
     }
 
     /**
@@ -40,6 +38,6 @@ class Monitor extends Mailable
         } else {
             $type_text = 'down';
         }
-        return $this->view('monitor-email')->subject(' '.strtoupper($type_text).' alert: '.$this->domain_name.' is '.$type_text.'');
+        return $this->view('monitor-email')->subject(' '.strtoupper($type_text).' alert: '.$this->domain.' is '.$type_text.'');
     }
 }
