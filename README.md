@@ -49,9 +49,11 @@ On server: type command below
 
 `crontab -e`
 
-Add this command & save & exit. 
+Add this two commands & save & exit. 
 
 `* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1`
+
+`* * * * * cd /path-to-your-project && php artisan queue:work >> /dev/null 2>&1`
 
 
 ## Disclaimer
