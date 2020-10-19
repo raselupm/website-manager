@@ -82,9 +82,12 @@ class DomainController extends Controller
             'name' => 'required|unique:domains|max:200'
         ]);
 
-        $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
+        if(!empty(env('WHOISXML_APIKEY'))) {
+            $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
 
-        $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&outputFormat=JSON');
+            $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&outputFormat=JSON');
+        }
+
 
 
 
@@ -108,12 +111,15 @@ class DomainController extends Controller
         $domain->cms = request('cms');
         $domain->cms_version = request('cms_version');
 
-        if($dnsResponse->successful()) {
-            $domain->dns_data = $dnsResponse->body();
-        }
 
-        if($whoisResponse->successful()) {
-            $domain->whois_data = $whoisResponse->body();
+        if(!empty(env('WHOISXML_APIKEY'))) {
+            if($dnsResponse->successful()) {
+                $domain->dns_data = $dnsResponse->body();
+            }
+
+            if($whoisResponse->successful()) {
+                $domain->whois_data = $whoisResponse->body();
+            }
         }
 
 
@@ -136,22 +142,24 @@ class DomainController extends Controller
         $domain = Domain::where('name', '=', request('name'))->firstOrFail();
 
 
-        $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
+        if(!empty(env('WHOISXML_APIKEY'))) {
+            $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
 
-        $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&outputFormat=JSON');
+            $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&outputFormat=JSON');
 
 
 
 
-        if($dnsResponse->successful() && $whoisResponse->successful()) {
-            $domain->dns_data = $dnsResponse->body();
-            $domain->whois_data = $whoisResponse->body();
+            if($dnsResponse->successful() && $whoisResponse->successful()) {
+                $domain->dns_data = $dnsResponse->body();
+                $domain->whois_data = $whoisResponse->body();
 
-            $domain->save();
+                $domain->save();
 
-            notify()->success('Domain data refreshed', '', ["positionClass" => "toast-bottom-right"]);
-        } else {
-            notify()->error('Problem on API', '', ["positionClass" => "toast-bottom-right"]);
+                notify()->success('Domain data refreshed', '', ["positionClass" => "toast-bottom-right"]);
+            } else {
+                notify()->error('Problem on API', '', ["positionClass" => "toast-bottom-right"]);
+            }
         }
 
 
@@ -164,28 +172,30 @@ class DomainController extends Controller
             'name' => 'required'
         ]);
 
-        $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
+        $up = false;
 
-        $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&outputFormat=JSON');
+        if(!empty(env('WHOISXML_APIKEY'))) {
+            $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
 
-        if($dnsResponse->successful() && $whoisResponse->successful()) {
-            $result = $dnsResponse->body();
-            $whois_result = $whoisResponse->body();
-        } else {
-            notify()->error('Problem on API', '', ["positionClass" => "toast-bottom-right"]);
-        }
+            $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&outputFormat=JSON');
 
-        if(count(json_decode($dnsResponse, true)['DNSData']['dnsRecords']) > 0   ) {
-            $ping = Http::get('http://' . request('name'));
-
-            if($ping->successful()) {
-                $up = true;
+            if($dnsResponse->successful() && $whoisResponse->successful()) {
+                $result = $dnsResponse->body();
+                $whois_result = $whoisResponse->body();
             } else {
-                $up = false;
+                notify()->error('Problem on API', '', ["positionClass" => "toast-bottom-right"]);
             }
-        } else {
-            $up = false;
+
+            if(count(json_decode($dnsResponse, true)['DNSData']['dnsRecords']) > 0   ) {
+                $ping = Http::get('http://' . request('name'));
+
+                if($ping->successful()) {
+                    $up = true;
+                }
+            }
         }
+
+
 
 
         return view('not-found', [
@@ -260,14 +270,16 @@ class DomainController extends Controller
         }
 
         // update DNS data if domain is different
-        if(request('name') != $domain->name) {
-            $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
+        if(!empty(env('WHOISXML_APIKEY'))) {
+            if(request('name') != $domain->name) {
+                $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
 
-            $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&outputFormat=JSON');
+                $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&outputFormat=JSON');
 
-            if($dnsResponse->successful() && $whoisResponse->successful()) {
-                $domain->dns_data = $dnsResponse->body();
-                $domain->whois_data = $whoisResponse->body();
+                if($dnsResponse->successful() && $whoisResponse->successful()) {
+                    $domain->dns_data = $dnsResponse->body();
+                    $domain->whois_data = $whoisResponse->body();
+                }
             }
         }
 
