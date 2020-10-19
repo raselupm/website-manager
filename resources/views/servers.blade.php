@@ -29,7 +29,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="name">Server name</label>
-                                        <input value="{{old('name')}}" type="text" name="name" id="name" placeholder="Type domain name without http or https & www" class="form-control" required>
+                                        <input value="{{old('name')}}" type="text" name="name" id="name" placeholder="Type server name" class="form-control" required>
                                     </div>
 
                                     <div class="form-group">

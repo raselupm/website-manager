@@ -81,7 +81,8 @@
                     <thead>
                     <tr>
                         <th class="px-4 border py-2 align-middle">Domain</th>
-                        <th class="px-4 border py-2 align-middle text-center">Have SSL?</th>
+                        <th class="px-4 border py-2 align-middle text-center">SSL</th>
+                        <th class="px-4 border py-2 align-middle text-center">Status</th>
                         <th class="px-4 border py-2 align-middle text-center">Hosted on</th>
                         <th class="px-4 border py-2 align-middle text-center">Domain expires in</th>
                         <th class="px-4 border py-2 align-middle text-center">Details</th>
@@ -90,8 +91,24 @@
                     <tbody>
                     @foreach($domains as $domain)
                         <tr>
-                            <td class="border px-4 py-2 align-middle"><a target="_blank" class="text-blue-500" href="http://{{$domain->name}}">{{$domain->name}} <i class="fas fa-external-link-alt text-xs"></i></a></td>
+                            <td class="border px-4 py-2 align-middle">
+                                <a target="_blank" class="text-blue-500" href="http://{{$domain->name}}">{{$domain->name}} <i class="fas fa-external-link-alt text-xs"></i></a>
+                            </td>
                             <td class="border px-4 py-2 align-middle text-center"><i class="{{$domain->ssl == 1 ? 'fas fa-check-circle text-green-700' : 'fas fa-times-circle text-red-700'}}"></i></td>
+
+                            <td class="border px-4 py-2 align-middle text-center">
+                                @if(count($domain->events()->latest()->get()) > 0)
+                                    @if($domain->events()->latest()->get()->first()->type == 1)
+                                        <span class="text-green-700">Site is up <i class="fas fa-check-circle"></i></span>
+                                    @else
+                                        <span class="text-red-700">Site is down <i class="fas fa-times-circle"></i></span>
+                                    @endif
+
+                                @else
+                                    <span class="text-yellow-700">Unknown <i class="fas fa-exclamation-triangle"></i></span>
+
+                                @endif
+                            </td>
                             <td class="border px-4 py-2 align-middle text-center">
                                 @if(!empty($domain->force_hosting == 1))
                                     PPM VPS <i class="fas fa-check-circle"></i>
