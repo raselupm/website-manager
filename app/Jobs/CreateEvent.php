@@ -122,10 +122,8 @@ class CreateEvent implements ShouldQueue
 
         // call only if site down
         if($method == self::TYPE_DOWN) {
-            $client->calls->create(env('TWILO_TO_NUMBER'), env('TWILO_FORM_NUMBER'), [
-                    'twiml' => '<Response><Say loop="3" voice="woman">'.$news_text.' news! Your domain ' . $domain . ' is '.$type_text.'.</Say></Response>'
-                ]
-            );
+            // Actually wait more 10 minutes if still down.
+            dispatch(new TwiloCall($domain, self::TYPE_DOWN))->delay(now()->addMinutes(10));
         }
     }
 
