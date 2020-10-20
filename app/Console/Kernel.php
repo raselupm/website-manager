@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
             dispatch(new CreateEvent());
-        })->everyFiveMinutes();
+        })->hourly();
     }
 
     /**

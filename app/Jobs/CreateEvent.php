@@ -125,7 +125,7 @@ class CreateEvent implements ShouldQueue
         // call only if site down
         if($method == self::TYPE_DOWN) {
             // Actually wait more 10 minutes if still down.
-            dispatch(new TwiloCall($domain, self::TYPE_DOWN))->delay(now()->addMinutes(5));
+            dispatch(new TwiloCall($domain, self::TYPE_DOWN))->delay(now()->addMinutes(15));
         }
     }
 
