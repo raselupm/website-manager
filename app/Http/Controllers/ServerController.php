@@ -11,7 +11,7 @@ class ServerController extends Controller
     public function index()
     {
         $servers = Server::latest()->paginate(50);
-        return view('servers', ['servers' => $servers]);
+        return view('servers.index', ['servers' => $servers]);
     }
 
     public function store(CreateServerRequest $request)
@@ -28,7 +28,7 @@ class ServerController extends Controller
 
     public function edit(Server $server)
     {
-        return view('edit-server', ['server' => $server]);
+        return view('servers.edit', ['server' => $server]);
     }
 
     public function update(UpdateServerRequest $request, $id)

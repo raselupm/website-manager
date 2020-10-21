@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <div class="text-3xl mb-4">Edit server</div>
-                @include('partials/error-message')
+                @include('partials.error-message')
 
                 <form action="{{route('servers.edit', $server)}}" method="POST">
                     @csrf
