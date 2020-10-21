@@ -1,6 +1,4 @@
 <x-app-layout>
-
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
@@ -25,7 +23,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="/add-server" method="POST">
+                                <form action="{{ route('servers.create') }}" method="POST">
                                     @csrf
                                     <div class="form-group">
                                         <label for="name">Server name</label>
@@ -63,9 +61,10 @@
                             </td>
                             <td class="border px-4 py-2 align-middle text-center">{{$server->ip}}</td>
                             <td class="border px-4 py-2 align-middle text-center">
-                                <a href="/edit-server/{{$server->id}}"><i class="fas fa-edit mr-2"></i></a>
-                                <form onSubmit="if(!confirm('Are you sure?')){return false;}" action="/delete-server/{{$server->id}}" class="d-inline" method="POST">
+                                <a href="{{route('servers.edit', $server)}}"><i class="fas fa-edit mr-2"></i></a>
+                                <form onSubmit="if(!confirm('Are you sure?')){return false;}" action="{{route('servers.delete', $server)}}" class="d-inline" method="POST">
                                     @csrf
+                                    @method('DELETE')
                                     <button type="submit"><i class="fas fa-trash text-red-600"></i></button>
                                 </form>
                             </td>
@@ -73,9 +72,6 @@
                     @endforeach
                     </tbody>
                 </table>
-
-
-
             </div>
         </div>
     </div>
