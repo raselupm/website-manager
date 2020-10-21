@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateServerRequest;
+use App\Http\Requests\UpdateServerRequest;
 use App\Models\Server;
 
 class ServerController extends Controller
@@ -12,18 +14,12 @@ class ServerController extends Controller
         return view('servers', ['servers' => $servers]);
     }
 
-    public function store()
+    public function store(CreateServerRequest $request)
     {
-        request()->validate([
-            'name' => 'required|max:200|unique:servers',
-            'ip' => 'required|unique:servers'
+        Server::create([
+            'name' => $request->get('name'),
+            'ip' => $request->get('ip')
         ]);
-
-        $server = new Server();
-        $server->name = request('name');
-        $server->ip = request('ip');
-
-        $server->save();
 
         notify()->success('Server added', '', ["positionClass" => "toast-bottom-right"]);
 
@@ -35,17 +31,13 @@ class ServerController extends Controller
         return view('edit-server', ['server' => $server]);
     }
 
-    public function update(Server $server)
+    public function update(UpdateServerRequest $request, $id)
     {
-        request()->validate([
-            'name' => 'required|max:200|unique:servers,name,'.$server->id,
-            'ip' => 'required|unique:servers,ip,'.$server->id,
-        ]);
-
-        $server->name = request('name');
-        $server->ip = request('ip');
-
-        $server->save();
+        Server::where('id', $id)
+            ->update([
+               'name' => $request->get('name'),
+               'ip' => $request->get('ip')
+            ]);
 
         notify()->success('Server updated', '', ["positionClass" => "toast-bottom-right"]);
 

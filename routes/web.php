@@ -19,7 +19,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
         Route::get('/', [ServerController::class, 'index'])->name('list');
         Route::post('create', [ServerController::class, 'store'])->name('store');
         Route::get('{server}', [ServerController::class, 'edit'])->name('edit');
-        Route::put('{server}', [ServerController::class, 'update'])->name('update');
+        Route::put('{id}', [ServerController::class, 'update'])->name('update');
         Route::delete('{server}', [ServerController::class, 'destroy'])->name('delete');
     });
 
