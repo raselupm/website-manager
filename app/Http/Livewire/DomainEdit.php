@@ -83,7 +83,7 @@ class DomainEdit extends Component
 
         $domain->save();
 
-        return \redirect()->to('/');
+        return \redirect('/' . $domain->name);
 
 
 
