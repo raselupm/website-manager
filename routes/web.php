@@ -16,6 +16,7 @@ use App\Http\Controllers\ServerController;
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::get('/', [DomainController::class, 'index'])->name('dashboard');
+    Route::get('/servers', [ServerController::class, 'index'])->name('servers');
     Route::get('/{name}', [DomainController::class, 'show'])->name('domain-single');
     Route::get('/edit-domain/{id}', [DomainController::class, 'edit'])->name('edit-domain');
     Route::post('/search', [DomainController::class, 'search'])->name('domain-search');
@@ -24,7 +25,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::post('/check', [DomainController::class, 'check'])->name('domain-dns-check');
 
     Route::post('/delete-domain/{id}', [DomainController::class, 'destroy'])->name('delete-domain');
-    Route::get('/servers', [ServerController::class, 'index'])->name('servers');
+
     Route::get('/edit-server/{id}', [ServerController::class, 'edit'])->name('edit-server');
     Route::post('/delete-server/{id}', [ServerController::class, 'destroy'])->name('delete-server');
 });

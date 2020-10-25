@@ -20,7 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f6d60f79-c68d-4016-aeb3-7de61b7826ab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/DomainEdit.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Livewire/DomainEdit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +217,7 @@
       <workItem from="1602906978026" duration="8232000" />
       <workItem from="1602986564619" duration="1353000" />
       <workItem from="1603066757469" duration="19579000" />
-      <workItem from="1603552434582" duration="15558000" />
+      <workItem from="1603552434582" duration="16007000" />
     </task>
     <servers />
   </component>
@@ -253,11 +254,11 @@
     <state x="649" y="315" width="739" height="522" key="find.popup/0.23.2048.1049@0.23.2048.1049" timestamp="1603585578822" />
     <state x="649" y="317" width="739" height="522" key="find.popup/0.23.2048.1056@0.23.2048.1056" timestamp="1602515159408" />
     <state x="649" y="317" width="739" height="523" key="find.popup/0.23.2048.1057@0.23.2048.1057" timestamp="1602574986940" />
-    <state x="612" y="297" width="670" height="672" key="search.everywhere.popup" timestamp="1603587499571">
+    <state x="612" y="297" width="670" height="672" key="search.everywhere.popup" timestamp="1603593392198">
       <screen x="0" y="23" width="2048" height="1049" />
     </state>
     <state x="430" y="240" width="670" height="534" key="search.everywhere.popup/0.23.1440.832@0.23.1440.832" timestamp="1603018858435" />
-    <state x="612" y="297" width="670" height="672" key="search.everywhere.popup/0.23.2048.1049@0.23.2048.1049" timestamp="1603587499571" />
+    <state x="612" y="297" width="670" height="672" key="search.everywhere.popup/0.23.2048.1049@0.23.2048.1049" timestamp="1603593392198" />
     <state x="612" y="297" width="670" height="673" key="search.everywhere.popup/0.23.2048.1050@0.23.2048.1050" timestamp="1602903699329" />
     <state x="612" y="298" width="670" height="674" key="search.everywhere.popup/0.23.2048.1052@0.23.2048.1052" timestamp="1603066815995" />
     <state x="612" y="298" width="670" height="675" key="search.everywhere.popup/0.23.2048.1054@0.23.2048.1054" timestamp="1603111855722" />
