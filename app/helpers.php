@@ -72,9 +72,9 @@ function mxProviderChecker($provider) {
 
 function uptimeType($type) {
     if($type == 1) {
-        return '<span class="badge badge-success"><i class="fas fa-level-up-alt"></i> Up</span>';
+        return '<span class="bg-green-500 text-white rounded px-3 py-1 text-xs"><i class="fas fa-level-up-alt"></i> Up</span>';
     } else {
-        return '<span class="badge badge-danger"><i class="fas fa-level-down-alt"></i> Down</span>';
+        return '<span class="bg-red-500 text-white rounded px-3 py-1 text-xs"><i class="fas fa-level-down-alt"></i> Down</span>';
     }
 }
 
