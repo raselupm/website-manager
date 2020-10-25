@@ -4,7 +4,7 @@ I will update description later.
 
 ## Installation
 
-####Prerequisites
+**Prerequisites**
 
 Register and get an API Key from Whois XML API: https://main.whoisxmlapi.com/. It is FREE (500 requests per month and that is enough).
 
@@ -13,7 +13,7 @@ Register slack webhooks for uptime notifications. Go here: https://slack.com/app
 If you want to get a call when your monitor is down, twilo is already integrated. You just need to fill twilo auth keys, from & to numbers. 
 
 
-####Lets start
+**Let's start**
 
 Clone the project 
 
@@ -31,7 +31,9 @@ Install composer
 
 Migrate database
 
-`php artisan migrate`
+`php artisan migrate:fresh --seed`
+
+It will also create dummy user. 
 
 After doing all fo these, serve the application
 
@@ -41,9 +43,11 @@ After doing all fo these, serve the application
 
 We are using laravel schedule for manage cron jobs. You can enable cron by following this:
 
-On local: Open a new tab on terminal. Now run command below: 
+On local: Open two new tabs on terminal. Now run commands below on each tab: 
 
 `php artisan schedule:work`
+
+`php artisan queue:work`
 
 On server: type command below
 
@@ -54,6 +58,11 @@ Add this two commands & save & exit.
 `* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1`
 
 `* * * * * cd /path-to-your-project && php artisan queue:work >> /dev/null 2>&1`
+
+**Login information**
+
+username: user@email.com
+password: user@email.com
 
 
 ## Disclaimer
