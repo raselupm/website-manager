@@ -6,24 +6,24 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 @if(!empty($result))
 
-                    <div class="row mb-4">
-                        <div class="col my-auto">
+                    <div class="flex -mx-3 mb-4">
+                        <div class="flex-1 px-3 my-auto">
                             <div class="text-3xl">
                                 DNS record for <b class="font-bold">{{$keyword}}</b>
 
                                 @if($up == true)
-                                    <span class="badge badge-success text-xs relative bottom-1 ml-3">Site is up <i class="fa fa-check"></i></span>
+                                    <span class="bg-green-500 text-white rounded px-2 py-1 text-xs relative bottom-1 ml-3">Site is up <i class="fa fa-check"></i></span>
                                 @else
-                                    <span class="badge badge-danger text-xs relative bottom-1 ml-3">Site is down <i class="fas fa-exclamation-triangle"></i></span>
+                                    <span class="bg-red-500 text-white rounded px-2 py-1 text-xs relative bottom-1 ml-3">Site is down <i class="fas fa-exclamation-triangle"></i></span>
                                 @endif
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="row">
+                    <div class="flex -mx-3">
                         @if(count(json_decode($result, true)['DNSData']['dnsRecords']) > 0   )
-                        <div class="col">
+                        <div class="flex-1 px-3">
                             <div class="border p-4">
                                 <h4 class="font-bold text-xl mb-2">Hosted on</h4>
                                 {{ipChecker( json_decode($result, true)['DNSData']['dnsRecords'][0]['address'] )}}
@@ -33,7 +33,7 @@
 
                         @if(count(json_decode($result, true)['DNSData']['dnsRecords']) > 1)
                            @if(end(json_decode($result, true)['DNSData']['dnsRecords'])['dnsType'] == 'MX')
-                            <div class="col">
+                            <div class="flex-1 px-3">
                                 <div class="border p-4">
                                     <h4 class="font-bold text-xl mb-2">Email hosting provider</h4>
                                     {{mxProviderChecker(end(json_decode($result, true)['DNSData']['dnsRecords'])['target'])}}
@@ -46,8 +46,8 @@
 
                     @if(array_key_exists('dataError', json_decode($whois_result, true)['WhoisRecord']))
                     @else
-                        <div class="row mt-4">
-                            <div class="col">
+                        <div class="flex -mx-3 mt-4">
+                            <div class="flex-1 px-3">
                                 <h3 class="font-bold text-xl  mb-3">Domain register information</h3>
                                 <table class="table-auto">
                                     <tbody>
@@ -86,7 +86,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col">
+                            <div class="flex-1 px-3">
                                 <h3 class="font-bold text-xl  mb-3">Domain contact information</h3>
                                 <table class="table-auto">
                                     <tbody>
@@ -143,13 +143,9 @@
                         <input type="hidden" name="name" value="{{$keyword}}">
 
 
-                        <button x-data="{ open: false }" type="submit" @click="open = true" class="btn btn-primary">Check {{$keyword}}'s record <i x-show="open" @click.away="open = false" class="fas fa-spin fa-spinner ml-2"></i></button>
+                        <button x-data="{ open: false }" type="submit" @click="open = true" class="bg-blue-600 text-white rounded py-1 px-4 border-none">Check {{$keyword}}'s record <i x-show="open" @click.away="open = false" class="fas fa-spin fa-spinner ml-2"></i></button>
                     </form>
                 @endif
-
-
-
-                @include('partials/error-message')
 
 
 

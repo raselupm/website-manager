@@ -49,14 +49,17 @@
                     content: "\f110";
                 }
             </style>
-            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" > </script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" ></script>
             <!-- Script -->
-            <script type="text/javascript">
+            <script type="text/javascript" >
 
                 // CSRF Token
                 var CSRF_TOKEN = '{{@csrf_token()}}';
 
-                $(document).ready(function(){
+                $(document).ready(function($){
 
                     $(".search-form").submit(function(){
                         $(".search-form button[type='submit'] i").addClass('fa-spin');

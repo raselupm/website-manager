@@ -4,8 +4,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <div class="row mb-4">
-                    <div class="col my-auto">
+                <div class="flex mb-4">
+                    <div class="flex-1">
                         <div class="font-bold text-3xl">
                             {{$domain->name}}
 
@@ -13,14 +13,14 @@
 
                             @if(!empty($lastEvent))
                                 @if($lastEvent->type == 1)
-                                    <span class="badge badge-success text-xs relative bottom-1 ml-3">Site is up <i class="fa fa-check"></i></span>
+                                    <span class="bg-green-500 text-white rounded px-2 py-1 text-xs relative bottom-1 ml-3">Site is up <i class="fa fa-check"></i></span>
                                 @else
-                                    <span class="badge badge-danger text-xs relative bottom-1 ml-3">Site is down <i class="fas fa-exclamation-triangle"></i></span>
+                                    <span class="bg-red-500 text-white rounded px-2 py-1 text-xs relative bottom-1 ml-3">Site is down <i class="fas fa-exclamation-triangle"></i></span>
                                 @endif
                             @endif
                         </div>
                     </div>
-                    <div class="col-auto my-auto">
+                    <div class="flex">
                         <a href="/edit-domain/{{$domain->id}}"><i class="fas fa-edit mr-2"></i></a>
                         <form onSubmit="if(!confirm('Are you sure?')){return false;}" action="/delete-domain/{{$domain->id}}" class="d-inline" method="POST">
                             @csrf
@@ -29,12 +29,11 @@
                     </div>
                 </div>
 
-                @include('partials/error-message')
 
 
-                <div class="row">
+                <div class="flex -mx-3">
                     @if(!empty($domain->cms))
-                        <div class="col">
+                        <div class="flex-1 px-3">
                             <div class="border p-4">
                                 <h4 class="font-bold text-xl mb-2">{{$domain->cms}}</h4>
                                 Version: {{$domain->cms_version}}
@@ -44,7 +43,7 @@
 
                     @if(array_key_exists('DNSData', json_decode($domain->dns_data, true)))
                         @if(count(json_decode($domain->dns_data, true)['DNSData']['dnsRecords']) > 0   )
-                            <div class="col">
+                            <div class="flex-1 px-3">
                                 <div class="border p-4">
                                     <h4 class="font-bold text-xl mb-2">Hosted on</h4>
                                     @if(!empty($domain->force_hosting == 1))
@@ -58,7 +57,7 @@
 
                         @if(count(json_decode($domain->dns_data, true)['DNSData']['dnsRecords']) > 1)
                             @if(end(json_decode($domain->dns_data, true)['DNSData']['dnsRecords'])['dnsType'] == 'MX')
-                                <div class="col">
+                                <div class="flex-1 px-3">
                                     <div class="border p-4">
                                         <h4 class="font-bold text-xl mb-2">Email hosting provider</h4>
                                         {{mxProviderChecker(end(json_decode($domain->dns_data, true)['DNSData']['dnsRecords'])['target'])}}
@@ -73,8 +72,8 @@
                 @if(array_key_exists('WhoisRecord', json_decode($domain->whois_data, true)))
                     @if(array_key_exists('dataError', json_decode($domain->whois_data, true)['WhoisRecord']))
                     @else
-                        <div class="row mt-4">
-                            <div class="col">
+                        <div class="flex mt-4 -mx-3">
+                            <div class="flex-1 px-3">
                                 <h3 class="font-bold text-xl  mb-3">Domain register information</h3>
 
                                 <table class="table-auto">
@@ -106,7 +105,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col">
+                            <div class="flex-1 px-3">
                                 <h3 class="font-bold text-xl  mb-3">Domain contact information</h3>
                                 <table class="table-auto">
                                     <tbody>
@@ -161,15 +160,15 @@
 
 
 
-                <div class="row mt-4">
-                    <div class="col">
+                <div class="flex mt-4">
+                    <div class="flex-1">
                         <form action="/refresh" method="POST">
                             @csrf
                             <input type="hidden" name="name" value="{{$domain->name}}">
-                            <button x-data="{ open: false }" type="submit" @click="open = true" class="btn btn-primary">Refresh data <i x-show="open" @click.away="open = false" class="fas fa-spin fa-spinner"></i></button>
+                            <button x-data="{ open: false }" type="submit" @click="open = true" class="bg-blue-600 text-white rounded py-1 px-4 border-none">Refresh data <i x-show="open" @click.away="open = false" class="fas fa-spin fa-spinner"></i></button>
                         </form>
                     </div>
-                    <div class="col-auto">Last update: {{$domain->updated_at->diffForHumans()}}</div>
+                    <div class="flex">Last update: {{$domain->updated_at->diffForHumans()}}</div>
                 </div>
 
 
@@ -180,7 +179,7 @@
             <h2 class="mt-10 font-bold text-2xl">Uptime logs</h2>
 
             <div class="bg-white shadow-lg rounded p-4 mt-4">
-                <table class="table m-0">
+                <table class="table-auto text-center w-full m-0">
                     <thead>
                     <tr>
                         <th class="border px-4 py-2">Event</th>

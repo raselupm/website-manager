@@ -23,7 +23,22 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DomainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DomainController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ServerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ServerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/AddDomain.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Jobs/CreateEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/CreateEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/domain.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/domains/single.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/edit-domain.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/domains/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/edit-server.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/servers/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/domains/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/add-domain.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/monitor-email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/domains/monitor-email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/navigation-dropdown.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/navigation-dropdown.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/not-found.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/domains/not-found.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/error-message.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/servers.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/servers/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/application-mark.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/application-mark.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,12 +201,15 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/domains" />
+      <recent name="$PROJECT_DIR$/resources/views/servers" />
+      <recent name="$PROJECT_DIR$/resources/views" />
       <recent name="$PROJECT_DIR$/app/analytics" />
       <recent name="$PROJECT_DIR$/public/img" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views" />
     </key>
   </component>
   <component name="RunManager">
@@ -215,7 +233,8 @@
       <workItem from="1602638862220" duration="56873000" />
       <workItem from="1602906978026" duration="8232000" />
       <workItem from="1602986564619" duration="1353000" />
-      <workItem from="1603066757469" duration="19342000" />
+      <workItem from="1603066757469" duration="19579000" />
+      <workItem from="1603552434582" duration="10845000" />
     </task>
     <servers />
   </component>
@@ -235,9 +254,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="766" y="414" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603100093638">
-      <screen x="0" y="23" width="2048" height="1056" />
+    <state x="766" y="411" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603561601312">
+      <screen x="0" y="23" width="2048" height="1049" />
     </state>
+    <state x="766" y="411" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1049@0.23.2048.1049" timestamp="1603561601312" />
     <state x="766" y="413" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1052@0.23.2048.1052" timestamp="1602837017623" />
     <state x="766" y="414" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1056@0.23.2048.1056" timestamp="1603100093638" />
     <state x="766" y="414" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1057@0.23.2048.1057" timestamp="1602572311333" />
@@ -250,10 +270,11 @@
     </state>
     <state x="649" y="317" width="739" height="522" key="find.popup/0.23.2048.1056@0.23.2048.1056" timestamp="1602515159408" />
     <state x="649" y="317" width="739" height="523" key="find.popup/0.23.2048.1057@0.23.2048.1057" timestamp="1602574986940" />
-    <state x="612" y="299" width="670" height="676" key="search.everywhere.popup" timestamp="1603122251121">
-      <screen x="0" y="23" width="2048" height="1056" />
+    <state x="612" y="297" width="670" height="672" key="search.everywhere.popup" timestamp="1603584909078">
+      <screen x="0" y="23" width="2048" height="1049" />
     </state>
     <state x="430" y="240" width="670" height="534" key="search.everywhere.popup/0.23.1440.832@0.23.1440.832" timestamp="1603018858435" />
+    <state x="612" y="297" width="670" height="672" key="search.everywhere.popup/0.23.2048.1049@0.23.2048.1049" timestamp="1603584909078" />
     <state x="612" y="297" width="670" height="673" key="search.everywhere.popup/0.23.2048.1050@0.23.2048.1050" timestamp="1602903699329" />
     <state x="612" y="298" width="670" height="674" key="search.everywhere.popup/0.23.2048.1052@0.23.2048.1052" timestamp="1603066815995" />
     <state x="612" y="298" width="670" height="675" key="search.everywhere.popup/0.23.2048.1054@0.23.2048.1054" timestamp="1603111855722" />
