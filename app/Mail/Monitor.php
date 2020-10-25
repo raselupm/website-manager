@@ -38,6 +38,6 @@ class Monitor extends Mailable
         } else {
             $type_text = 'down';
         }
-        return $this->view('monitor-email')->subject(' '.strtoupper($type_text).' alert: '.$this->domain.' is '.$type_text.'');
+        return $this->view('domains/monitor-email')->subject(' '.strtoupper($type_text).' alert: '.$this->domain.' is '.$type_text.'');
     }
 }
