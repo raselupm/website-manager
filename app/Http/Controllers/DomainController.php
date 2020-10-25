@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Redirect;
 class DomainController extends Controller
 {
 
-
     public function getDomains(Request $request){
 
         $search = $request->search;
