@@ -91,3 +91,12 @@ function dynamicJSFormat($time) {
         return '%s seconds';
     }
 }
+
+
+function dnsAPIURL($domain) {
+    return 'https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.$domain.'&type=A,MX&outputFormat=JSON';
+}
+
+function whoisAPIURL($domain) {
+    return 'https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.$domain.'&outputFormat=JSON';
+}

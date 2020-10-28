@@ -26,12 +26,6 @@ class DomainAdd extends Component
     public function submitForm() {
         $this->validate();
 
-        if(!empty(env('WHOISXML_APIKEY'))) {
-            $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.$this->name.'&type=A,MX&outputFormat=JSON');
-
-            $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.$this->name.'&outputFormat=JSON');
-        }
-
 
         $domain = new Domain();
         $domain->name = $this->name;
@@ -41,6 +35,9 @@ class DomainAdd extends Component
         $domain->force_hosting = $this->force_hosting;
 
         if(!empty(env('WHOISXML_APIKEY'))) {
+            $dnsResponse = Http::get(dnsAPIURL($this->name));
+            $whoisResponse = Http::get(whoisAPIURL($this->name));
+
             if($dnsResponse->successful()) {
                 $domain->dns_data = $dnsResponse->body();
             }

@@ -2,7 +2,9 @@
 
 namespace App\Console;
 
-use App\Jobs\CreateEvent;
+use App\Jobs\DomainMonitor;
+use App\Jobs\DomainRecordUpdater;
+use App\Models\Domain;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,11 +27,25 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-
+        // check websites update every five minutes
         $schedule->call(function () {
-            dispatch(new CreateEvent());
+            $domains = Domain::select(['id', 'name'])->get();
+            foreach ($domains as $domain) {
+                dispatch(new DomainMonitor($domain));
+            }
         })->everyFiveMinutes();
+
+        // update all domain record every month
+        if(!empty(env('WHOISXML_APIKEY'))) {
+            $schedule->call(function () {
+                $domains = Domain::select(['id', 'name'])->get();
+                foreach ($domains as $domain) {
+                    dispatch(new DomainRecordUpdater($domain));
+                }
+            })->monthly();
+        }
+
+
     }
 
     /**

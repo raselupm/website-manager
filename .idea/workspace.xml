@@ -20,14 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f6d60f79-c68d-4016-aeb3-7de61b7826ab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/website-manager-jetstream.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/website-manager-jetstream.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DomainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DomainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/DomainAdd.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Livewire/DomainAdd.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/CreateEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/DomainRecordUpdater.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/helpers.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,17 +187,19 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/resources/views" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/domains" />
       <recent name="$PROJECT_DIR$/resources/views/servers" />
       <recent name="$PROJECT_DIR$/resources/views" />
       <recent name="$PROJECT_DIR$/app/analytics" />
       <recent name="$PROJECT_DIR$/public/img" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views" />
     </key>
   </component>
   <component name="RunManager">
@@ -225,6 +225,7 @@
       <workItem from="1602986564619" duration="1353000" />
       <workItem from="1603066757469" duration="19579000" />
       <workItem from="1603552434582" duration="22688000" />
+      <workItem from="1603886371770" duration="2588000" />
     </task>
     <servers />
   </component>
@@ -244,13 +245,14 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="766" y="411" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603561601312">
-      <screen x="0" y="23" width="2048" height="1049" />
+    <state x="766" y="410" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603889135986">
+      <screen x="0" y="25" width="2048" height="1042" />
     </state>
     <state x="766" y="411" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1049@0.23.2048.1049" timestamp="1603561601312" />
     <state x="766" y="413" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1052@0.23.2048.1052" timestamp="1602837017623" />
     <state x="766" y="414" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1056@0.23.2048.1056" timestamp="1603100093638" />
     <state x="766" y="414" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.2048.1057@0.23.2048.1057" timestamp="1602572311333" />
+    <state x="766" y="410" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.25.2048.1042@0.25.2048.1042" timestamp="1603889135986" />
     <state width="811" height="445" key="SwitcherDM" timestamp="1602673139066">
       <screen x="0" y="23" width="2048" height="1054" />
     </state>

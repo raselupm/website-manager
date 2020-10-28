@@ -55,6 +55,7 @@ class DomainController extends Controller
 
 
 
+
     public function refresh() {
 
         request()->validate([
@@ -65,11 +66,8 @@ class DomainController extends Controller
 
 
         if(!empty(env('WHOISXML_APIKEY'))) {
-            $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
-
-            $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&outputFormat=JSON');
-
-
+            $dnsResponse = Http::get(dnsAPIURL(request('name')));
+            $whoisResponse = Http::get(whoisAPIURL(request('name')));
 
 
             if($dnsResponse->successful() && $whoisResponse->successful()) {
@@ -97,9 +95,8 @@ class DomainController extends Controller
         $up = false;
 
         if(!empty(env('WHOISXML_APIKEY'))) {
-            $dnsResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/DNSService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&type=A,MX&outputFormat=JSON');
-
-            $whoisResponse = Http::get('https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey='.env('WHOISXML_APIKEY').'&domainName='.request('name').'&outputFormat=JSON');
+            $dnsResponse = Http::get(dnsAPIURL(request('name')));
+            $whoisResponse = Http::get(whoisAPIURL(request('name')));
 
             if($dnsResponse->successful() && $whoisResponse->successful()) {
                 $result = $dnsResponse->body();
